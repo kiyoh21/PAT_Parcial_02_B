@@ -5,6 +5,6 @@
 class Ejercicio01
 {
 public:
-	Node<char>* remove(Node<char>* head, char value);
+	Node<char>* remove(Node<char>* head);
 };
 

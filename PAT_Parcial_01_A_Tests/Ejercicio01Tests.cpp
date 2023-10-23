@@ -16,16 +16,15 @@ using ::std::vector;
 using ::std::string;
 
 namespace P02Tests {
-	class E01Tests : public TestWithParam<tuple<vector<char>, char, vector<char>>> {
+	class E01Tests : public TestWithParam<tuple<vector<char>, vector<char>>> {
 	protected:
 		Ejercicio01* e01;
 		vector<char> params;
-		char value;
 		vector<char> expected;
 		
 		void SetUp() override {
 			e01 = new Ejercicio01();
-			std::tie(params, value, expected) = GetParam();
+			std::tie(params, expected) = GetParam();
 		}
 
 		void TearDown() override {
@@ -47,10 +46,6 @@ namespace P02Tests {
 				string paramsString;
 				std::getline(strStream, paramsString, ',');
 				vector<char> p(paramsString.begin(), paramsString.end());
-
-				string valueString;
-				std::getline(strStream, valueString, ',');
-				char value = valueString[0];
 
 				string expectedString;
 				std::getline(strStream, expectedString, ',');
@@ -92,7 +87,7 @@ namespace P02Tests {
 		Node<char>* head = buildList(params);
 		Node<char>* expectedHead = buildList(expected);
 
-		head = e01->remove(head, value);
+		head = e01->remove(head);
 
 		vector<char> actual = buildFromList(head);
 

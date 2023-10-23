@@ -7,9 +7,9 @@ name: Compilacion y Pruebas
 
 on:
   push:
-    branches: [ "main", "solution" ]
+    branches: [ "none" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "none" ]
 
 env:
   # Path to the solution file relative to the root of the project.
