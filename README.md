@@ -51,34 +51,37 @@ ___
 
 ## Ejercicio 1 (20 puntos)
 
-Dado el nodo `head` de una lista simplemente enlazada y un caracter `value`, elimine todos los nodos de la lista que cumplan con la condición `Node<char>.valu == value`. Retorne el nuevo `head` de la lista enlazada.
+Dado el nodo `head` de una lista simplemente enlazada que se encuentra **ordenada**, *elimine todos los elementos duplicados de la lista*, de tal manera que cada valor aparezca una y solo una vez. Retorne la lista actualizada y ordenada de igual manera.
+
+En la lista, primero se encuentran los nodos con valores entre `'A'` y `'Z'`, si existen, y luego los nodos con valores entre `'a'` y `'z'`.
 
 ### Ejemplo 1.1
 
 ![example 1.1](images/example1_1.jpeg)
 
-    head = [a -> b -> f -> c -> d -> e -> f], value = 'f'
-    resultado = [a -> b -> c -> d -> e]
+    head = [A -> A -> b]
+    resultado = [A -> b]
 
 ___
 
 ## Ejemplo 1.2
 
-    head = [], value = 'a'
-    resultado = []
+![example 1.2](images/example1_2.jpeg)
+
+    head = [A -> A -> Z -> b -> b]
+    resultado = [A -> Z -> b]
 ___
 
 ## Ejemplo 1.3
 
-    head = [g -> g -> g -> g], value = 'g'
-    resultado = []
+    head = [H -> H -> H -> g -> g -> g -> g]
+    resultado = [H -> g]
 ___
 
 ### Restricciones
 
-- La cantidad de nodos se encuentra entre **0** y **50**
-- `'a'` <= `Node.value` <= `'z'`
-- `'a'` <= `value` <= `'z'`
+- La cantidad de nodos se encuentra entre **0** y **300**
+- `'A'` <= `Node.value` <= `'Z'` || `'a'` <= `Node.value` <= `'z'`
 
 ___
 
