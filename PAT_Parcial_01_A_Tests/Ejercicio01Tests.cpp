@@ -34,8 +34,8 @@ namespace P02Tests {
 
 	public:
 
-		static vector<tuple<vector<char>, char, vector<char>>> ReadParams() {
-			vector<tuple<vector<char>, char, vector<char>>> params;
+		static vector<tuple<vector<char>, vector<char>>> ReadParams() {
+			vector<tuple<vector<char>, vector<char>>> params;
 
 			std::ifstream paramsFile("e01.csv");
 			string line;
@@ -51,7 +51,7 @@ namespace P02Tests {
 				std::getline(strStream, expectedString, ',');
 				vector<char> e(expectedString.begin(), expectedString.end());
 
-				params.push_back(tuple<vector<char>, char, vector<char>>(p, value, e));
+				params.push_back(tuple<vector<char>, vector<char>>(p, e));
 ;			}
 
 			return params;
