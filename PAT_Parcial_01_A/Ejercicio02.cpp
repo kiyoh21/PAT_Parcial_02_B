@@ -1,65 +1,40 @@
 #include "Ejercicio02.h"
 #include <vector>
+#include <queue>
 
-using std::vector;
+int Ejercicio02::countStudents(std::vector<char*> students, std::vector<char*> sandwiches) {
+    std::queue<char*> studentQueue;
 
-// Clase auxiliar para representar una cola (FIFO) básica
-class Cola {
-private:
-    vector<char> elementos;
-
-public:
-    void encolar(char elem) {
-        elementos.push_back(elem);
+    // Llenamos la cola con las preferencias de los estudiantes.
+    for (auto preference : students) {
+        studentQueue.push(preference);
     }
 
-    char frente() const {
-        if (!elementos.empty()) {
-            return elementos.front();
-        }
-        return '\0';  // retorna un valor nulo si la cola está vacía
-    }
+    int sandwichesIndex = 0;
+    int rejectCount = 0; // Para contar cuántos estudiantes consecutivos rechazan el sandwich actual.
 
-    void desencolar() {
-        if (!elementos.empty()) {
-            elementos.erase(elementos.begin());
-        }
-    }
+    while (!studentQueue.empty()) {
+        char* currentStudentPreference = studentQueue.front();
 
-    bool estaVacia() const {
-        return elementos.empty();
-    }
-
-    int size() const {
-        return elementos.size();
-    }
-};
-
-int Ejercicio02::countStudents(vector<char>* students, vector<char>* sandwiches) {
-    Cola colaEstudiantes;
-    for (char preferencia : *students) {
-        colaEstudiantes.encolar(preferencia);
-    }
-
-    int sandwichesTomados = 0;
-    while (!colaEstudiantes.estaVacia() && sandwichesTomados < sandwiches->size()) {
-        char sandwichFrente = (*sandwiches)[sandwichesTomados];
-        if (colaEstudiantes.frente() == sandwichFrente) {
-            // El estudiante toma el sandwich y sale de la cola
-            colaEstudiantes.desencolar();
-            sandwichesTomados++;
+        if (*currentStudentPreference == *sandwiches[sandwichesIndex]) {
+            // El estudiante toma el sandwich.
+            studentQueue.pop();
+            sandwichesIndex++;
+            rejectCount = 0; // Reiniciar el contador de rechazos.
         }
         else {
-            // El estudiante vuelve a la cola y espera su turno
-            char estudiante = colaEstudiantes.frente();
-            colaEstudiantes.desencolar();
-            colaEstudiantes.encolar(estudiante);
-            // Si después de una vuelta completa nadie ha tomado el sandwich, termina el proceso
-            if (colaEstudiantes.frente() == estudiante) {
-                break;
+            // El estudiante rechaza el sandwich y va al final de la cola.
+            studentQueue.pop();
+            studentQueue.push(currentStudentPreference);
+            rejectCount++;
+
+            // Si todos los estudiantes restantes han rechazado el sandwich actual.
+            if (rejectCount == studentQueue.size()) {
+                break; // Salir del bucle.
             }
         }
     }
 
-    return colaEstudiantes.size();
+    // Retorna el número de estudiantes que no pudieron obtener un sandwich.
+    return studentQueue.size();
 }
